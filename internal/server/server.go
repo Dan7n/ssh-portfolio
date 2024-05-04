@@ -1,33 +1,28 @@
 package server
 
 import (
-	"fmt"
-	"net/http"
-	"os"
-	"strconv"
-	"time"
+	"net"
+	"ssh-portfolio/internal/sshSession"
 
+	"github.com/charmbracelet/ssh"
+	"github.com/charmbracelet/wish"
+	"github.com/charmbracelet/wish/activeterm"
+
+	"github.com/charmbracelet/wish/bubbletea"
+	"github.com/charmbracelet/wish/logging"
 	_ "github.com/joho/godotenv/autoload"
 )
 
-type Server struct {
-	port int
-}
+func CreateServer(port, host string) (*ssh.Server, error) {
+	server, err := wish.NewServer(
+		wish.WithAddress(net.JoinHostPort(host, port)),
+		wish.WithHostKeyPath(".ssh/id_ed25519"),
+		wish.WithMiddleware(
+			bubbletea.Middleware(sshSession.CreateHandler),
+			activeterm.Middleware(), // Bubble Tea apps usually require a PTY.
+			logging.Middleware(),
+		),
+	)
 
-func NewServer() *http.Server {
-	port, _ := strconv.Atoi(os.Getenv("PORT"))
-	NewServer := &Server{
-		port: port,
-	}
-
-	// Declare Server config
-	server := &http.Server{
-		Addr:         fmt.Sprintf(":%d", NewServer.port),
-		Handler:      NewServer.RegisterRoutes(),
-		IdleTimeout:  time.Minute,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 30 * time.Second,
-	}
-
-	return server
+	return server, err
 }
