@@ -17,6 +17,17 @@ const header = `	______  ________  ___   __   ___   __   __  __     ________  __
    \:\/.:| \:.\ \  \ \. \'-\  \ \. \'-\  \ \\::\ \   /__\::\__/\ /____\:\:.\ \  \ \:.\ \  \ \:\_\ \ \
     \____/_/\__\/\__\/\__\/ \__\/\__\/ \__\/ \__\/   \________\/ \_____\/\__\/\__\/\__\/\__\/\_____\/ `
 
+const heartAscii = `   &&&&&&&   &&&&&&&   
+  &&&&&&&&&&&&&&&&&&&& 
+ &&&&&&&&&&&&&&&&&&&&& 
+ &&&&&&&&&&&&&&&&&&&&& 
+ &&&&&&&&&&&&&&&&&&&&& 
+  &&&&&&&&&&&&&&&&&&&  
+    &&&&&&&&&&&&&&&    
+      &&&&&&&&&&&      
+        &&&&&&&        
+          &&&          `
+
 const paddingInline = 2
 
 func CreateHandler(sshSession ssh.Session) (tea.Model, []tea.ProgramOption) {
@@ -34,6 +45,7 @@ func CreateHandler(sshSession ssh.Session) (tea.Model, []tea.ProgramOption) {
 	aboutTabContent[3] = tabContent{style: defaultStyle, content: "I really love what I do and I'm always looking for new challenges and ways to grow as an enginner. \nI'm also a musician and have been playing the piano professionally for over 15 years now."}
 	aboutTabContent[4] = tabContent{style: defaultStyle, content: "With that said, thank you again for SSHing in and please feel free to reach out\nto me on LinkedIn or via email (press c) if you have any questions or just want to chat. \nI'm always up for a good conversation!"}
 	aboutTabContent[5] = tabContent{style: defaultStyle.Copy().BorderBottom(true), content: "I hope you have a great day and that you enjoy the rest of your time on my site. Take care!"}
+	aboutTabContent[6] = tabContent{style: defaultStyle.Copy().Foreground(lipgloss.Color("1")), content: heartAscii}
 
 	contactTabContent := map[int]tabContent{}
 	contactTabContent[0] = tabContent{style: defaultStyle.Copy().Bold(true).Foreground(lipgloss.Color("1")), content: "# Here's how you can reach me:"}
