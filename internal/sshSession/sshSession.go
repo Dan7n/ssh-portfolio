@@ -28,16 +28,18 @@ func CreateHandler(sshSession ssh.Session) (tea.Model, []tea.ProgramOption) {
 	defaultStyle := lipgloss.NewStyle().MaxWidth(lipgloss.Width(header)).Padding(1, paddingInline)
 
 	aboutTabContent := map[int]tabContent{}
-	aboutTabContent[0] = tabContent{style: defaultStyle.Copy().Bold(true).MarginBottom(1), content: "# Hey there! So cool that you're SSH'd in! 🎉"}
-	aboutTabContent[1] = tabContent{style: defaultStyle, content: "My name's Danny and this is a fun little project to play around with the Go programming language and make my little portfolio site a bit more interesting."}
-	aboutTabContent[2] = tabContent{style: defaultStyle, content: "I'm currently working at a company called Klarna, where I'm part of the team that's working on making klarna.com a better place for our customers"}
-	aboutTabContent[3] = tabContent{style: defaultStyle, content: "Please feel free to reach out to me on LinkedIn or via email if you have any questions or just want to chat. I'm always up for a good conversation!"}
-	aboutTabContent[4] = tabContent{style: defaultStyle.Copy().BorderBottom(true), content: "I hope you have a great day and that you enjoy the rest of your time on my site. Take care!"}
+	aboutTabContent[0] = tabContent{style: defaultStyle.Copy().Bold(true).Foreground(lipgloss.Color("1")), content: "# Hey there! So cool that you're SSH'd in! 🚀"}
+	aboutTabContent[1] = tabContent{style: defaultStyle, content: "My name's Danny and this is a fun little project to play around with the Go programming language\nand make my little portfolio site (https://dannyisaac.com) a bit more interesting."}
+	aboutTabContent[2] = tabContent{style: defaultStyle, content: "I'm a fullstack software engineer currently working at a company called Klarna, where I'm \npart of a team that's working on making https://www.klarna.com a smoother and more enjoyable experience \nfor our +150M global users."}
+	aboutTabContent[3] = tabContent{style: defaultStyle, content: "I really love what I do and I'm always looking for new challenges and ways to grow as an enginner. \nI'm also a musician and have been playing the piano professionally for over 15 years now."}
+	aboutTabContent[4] = tabContent{style: defaultStyle, content: "With that said, thank you again for SSHing in and please feel free to reach out\nto me on LinkedIn or via email (press c) if you have any questions or just want to chat. \nI'm always up for a good conversation!"}
+	aboutTabContent[5] = tabContent{style: defaultStyle.Copy().BorderBottom(true), content: "I hope you have a great day and that you enjoy the rest of your time on my site. Take care!"}
 
 	contactTabContent := map[int]tabContent{}
-	contactTabContent[0] = tabContent{style: defaultStyle.Copy().Bold(true).Foreground(lipgloss.Color("#f72585")).MarginBottom(1), content: "LinkedIn: https://www.linkedin.com/in/danny-isaac/"}
-	contactTabContent[1] = tabContent{style: defaultStyle, content: "Github: https://github.com/Dan7n"}
-	contactTabContent[2] = tabContent{style: defaultStyle, content: "Email: danny95.nbl@gmail.com"}
+	contactTabContent[0] = tabContent{style: defaultStyle.Copy().Bold(true).Foreground(lipgloss.Color("1")), content: "# Here's how you can reach me:"}
+	contactTabContent[1] = tabContent{style: defaultStyle, content: "LinkedIn: https://www.linkedin.com/in/danny-isaac/"}
+	contactTabContent[2] = tabContent{style: defaultStyle, content: "Github: https://github.com/Dan7n"}
+	contactTabContent[3] = tabContent{style: defaultStyle, content: "Email: mailto://danny95.nbl@gmail.com"}
 
 	content := []map[int]tabContent{aboutTabContent, contactTabContent}
 
@@ -145,7 +147,15 @@ func (mod model) View() string {
 			border.BottomRight = "┤"
 		}
 
+		if isActive {
+			style.Bold(true)
+		} else {
+			style.Bold(false)
+			style.Faint(true)
+		}
+
 		if t == "" {
+			// create a hidden tab that's as wide as the remaining space with a bottom border
 			style.Padding(0)
 			style.PaddingRight(lipgloss.Width(header) - (lipgloss.Width(mod.Tabs[0]) * 4))
 			style.BorderLeft(false)
