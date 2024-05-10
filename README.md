@@ -2,6 +2,8 @@
 
 A small fun project inspired by [terminal.shop](https://www.terminal.shop/) to create an SSH-based portfolio website to learn more about SSH and the Go programming language.
 
+Run `ssh ssh-portfolio.fly.dev` to see this in action!
+
 ## Deployment
 
 Todo - this is a work in progress and I still need to figure out how to deploy this application and hook it up to my domain [dannyisaac.com](dannyissac.com)
