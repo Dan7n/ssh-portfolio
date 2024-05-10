@@ -16,7 +16,9 @@ import (
 func CreateServer(port, host string) (*ssh.Server, error) {
 	server, err := wish.NewServer(
 		wish.WithAddress(net.JoinHostPort(host, port)),
-		wish.WithHostKeyPath(".ssh/id_ed25519"),
+		wish.WithPublicKeyAuth(func(ctx ssh.Context, key ssh.PublicKey) bool {
+			return true // Accept all public keys
+		}),
 		wish.WithMiddleware(
 			bubbletea.Middleware(sshSession.CreateHandler),
 			activeterm.Middleware(), // Bubble Tea apps usually require a PTY.
