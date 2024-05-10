@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-*.ssh
+.ssh/id_ed25519
 
 # Test binary, built with "go test -c"
 *.test
